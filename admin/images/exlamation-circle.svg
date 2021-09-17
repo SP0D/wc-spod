@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / exlamation-circle</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.419608 0 0 0 0 0.447059 0 0 0 0 0.501961 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icon-/-exlamation-circle" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g filter="url(#filter-1)" id="sm-exclamation-circle">
+            <g transform="translate(2.000000, 2.000000)">
+                <path d="M16,8 C16,12.4183 12.4183,16 8,16 C3.58172,16 0,12.4183 0,8 C0,3.58172 3.58172,0 8,0 C12.4183,0 16,3.58172 16,8 Z M9,12 C9,12.5523 8.5523,13 8,13 C7.44772,13 7,12.5523 7,12 C7,11.4477 7.44772,11 8,11 C8.5523,11 9,11.4477 9,12 Z M8,3 C7.44772,3 7,3.44772 7,4 L7,8 C7,8.5523 7.44772,9 8,9 C8.5523,9 9,8.5523 9,8 L9,4 C9,3.44772 8.5523,3 8,3 Z" id="Shape" fill="#4A5568"></path>
+            </g>
+        </g>
+    </g>
+</svg>

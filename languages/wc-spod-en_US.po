@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SPOD WooCommerce Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-30 13:06+0000\n"
+"PO-Revision-Date: 2021-03-30 13:06+0000\n"
+"Last-Translator: \n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.2; wp-5.7\n"
+"X-Domain: ng_spod_plugin"
+
+#. Description of the plugin
+msgid ""
+"Connect your WooCommerce Shop to the leading provider of whitelabel print-on-"
+"demand services. Get an automatic product, order and order status "
+"synchronisation and a seamless integration into your WooCommerce setup ready "
+"within minutes."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.spod.com"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://www.spod.com/"
+msgstr ""
+
+#. Author of the plugin
+msgid "SPOD - Spreadshirt-Print-On-Demand GmbH"
+msgstr ""
+
+#. Name of the plugin
+msgid "SPOD WooCommerce Plugin"
+msgstr ""
+
+#: classes/NgSpodPluginAdmin.php:155
+msgid ""
+"Woocommerce is not installed. The spod plugin needs <a href=\"https:"
+"//woocommerce.com/\" title=\"wocommerce\" target=\"_blank\">woocommerce</a> "
+"installed and activated."
+msgstr ""

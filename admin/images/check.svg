@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon / check</title>
+    <defs>
+        <filter id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.419608 0 0 0 0 0.447059 0 0 0 0 0.501961 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icon-/-check" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g filter="url(#filter-1)" id="sm-check">
+            <g transform="translate(3.000000, 5.000000)">
+                <path d="M13.7071,0.29289 C14.0976,0.68342 14.0976,1.31658 13.7071,1.70711 L5.70711,9.7071 C5.31658,10.0976 4.68342,10.0976 4.29289,9.7071 L0.29289,5.7071 C-0.09763,5.3166 -0.09763,4.68342 0.29289,4.29289 C0.68342,3.90237 1.31658,3.90237 1.70711,4.29289 L5,7.5858 L12.2929,0.29289 C12.6834,-0.09763 13.3166,-0.09763 13.7071,0.29289 Z" id="Path" fill="#4A5568"></path>
+            </g>
+        </g>
+    </g>
+</svg>
