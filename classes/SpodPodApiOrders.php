@@ -4,7 +4,7 @@
  *
  * @link       https://www.spod.com
  * @since      1.0.0
- * @see        https://rest.spod-staging.com/docs/#tag/Articles
+ * @see        https://rest.spod.com/docs/#tag/Articles
  * @package    wc-spod
  * @subpackage wc-spod/classes
  */
@@ -115,10 +115,19 @@ class SpodPodApiOrders extends SpodPodApiHandler
             #update_post_meta($order_id, '_spod_order', $count_order_items==$count_spod_products ? true : false);
             #update_post_meta($order_id, '_spod_order', true);
 
-            // multiple taxes - at the moment pick up only first
+            // multiple taxes - pick up only first
             $taxes = $order->get_taxes();
-            $tax_rate = array_shift($taxes);
-
+            if (count($taxes)>0) {
+                $tax_rate = array_shift($taxes);
+                $shipping_tax_total = $tax_rate->get_shipping_tax_total();
+                $rate_percent = $tax_rate->get_rate_percent();
+            }
+            else {
+                $tax_rate = [];
+                $shipping_tax_total = 0;
+                $rate_percent = 0;
+            }
+            
             $billing_address = [
                 'company' => trim($order->get_billing_company()),
                 'firstName' => trim($order->get_billing_first_name()),
@@ -150,9 +159,9 @@ class SpodPodApiOrders extends SpodPodApiHandler
             $return_order['shipping']['fromAddress'] = $billing_address;
             // shipping costs
             $return_order['shipping']['customerPrice'] = [
-                'amount' => ($order->get_shipping_total()+$tax_rate->get_shipping_tax_total()),
-                'taxRate' => $tax_rate->get_rate_percent(),
-                'taxAmount' => $tax_rate->get_shipping_tax_total(),
+                'amount' => ($order->get_shipping_total()+$shipping_tax_total),
+                'taxRate' => $rate_percent,
+                'taxAmount' => $shipping_tax_total,
                 'currency' => $order->get_currency()
             ];
 
