@@ -263,6 +263,10 @@ class SpodPodAdmin {
             ];
         }
 
+        foreach ($return as $key => $value) {
+            $return[$key] = sanitize_text_field($value);
+        }
+
         $return_string = json_encode($return);
         echo $return_string;
 
