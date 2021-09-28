@@ -1,7 +1,7 @@
-=== SPOD - Pod Plugin ===
+=== SPOD - Print On Demand Integration for WooCommerce ===
 Contributors: 5p0d
 Donate link: www.spod.com
-Tags: POD, SPOD, Print On Demand, T-Shirts, Dropshipping, Spreadshirt, Apparel
+Tags: Print on demand, Dropshipping, Woocommerce, POD, Print, Print on demand Europe, Print on demand US, SPOD, T-Shirts, Spreadshirt, Apparel
 Requires at least: 4.6 - 5.7
 Tested up to: 5.8
 Stable tag: 1.0.0
@@ -14,16 +14,44 @@ Get an automatic product, order and order status synchronisation and a seamless 
 
 == Description ==
 
-Get your WooCommerce store connected to the fastest print on demand provider available. Over 19 years of experience with over 40 million products printed and shipped.
-Focus on building your store and connecting to your customers while SPOD provides you with the tools to create over 150 different products with a free design library or your uploaded designs.
-We will print and ship the products you sell to your customers directly.
+## Meet the industry’s fastest print-on-demand dropshipping provider!
 
-The SPOD plugin connects your WooCommerce store via the SPOD API to your SPOD account and provides you with print on demand dropshipping services
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+Meet SPOD.  Our plugin equips you with everything you need to create, publish and sell custom-printed products in your online store. You simply upload your design on products from our collection, add it to your store and we will print, pack it and ship it for you directly to your customer.
+With SPOD, you’ll enjoy lightning-fast 48-hour production and low prices to earn more from your shop in no time. Install our simple, easy-to-use plugin to get started with print on demand today!
 
-= HOW DOES THE PLUGIN WORK? =
-After you connected your WooCommerce store to SPOD, we will automatically import the products you already created with us.
-Then, when a customer buys a SPOD product from your WooCommerce store the plugin automatically imports the order to SPOD. We will then print and ship the item on your behalf to your customer.
+## Why use the SPOD plugin for WooCommerce?
+
+- Fastest turnaround in the industry: 48 hours or less
+- Wide assortment: 150+ products (and counting)
+- Worldwide shipping: factories in US & EU for localized production
+- Low prices from us, high margins for you: printed T-shirts start from just $6.71 / 8,08 €
+- Simple shipping prices based on order value: calculate your earnings without the headache
+- Expert production: 20 years printing experience, backed by Spreadshirt
+- Happy customers, low return rates: less than 1% returns
+- Streamlined dashboard: keep tabs on your orders and revenue
+- Free design library: over 50k free designs to help you get started
+- Top-notch customer service
+- Helpful community of fellow SPODsters on Facebook
+
+## Why choose print on demand?
+
+Print on demand (POD) means that every product from your online shop is produced to order. Print-on-demand business models are a perfect way sell your own custom products without the risk of high initial investment, overstocking products, or storing inventory. SPOD enables merchants sell products featuring their own designs or branding with no need to stock, produce, print or ship anything themselves.
+
+The POD process is also inherently more sustainable than traditional fashion business models due to reduced overstock and rock-bottom return rates.
+
+## SPOD’s promise to you
+
+We will support your online store with fast turnaround, reliable quality and 100% transparency – all wrapped up in a super simple tool. SPOD’s got your back – pinkie promise.
+
+**Download SPOD for WooCommerce and start selling your custom products today!**
+
+## Useful links
+
+- Join our Facebook Group
+- Learn more about POD tips and advice from our SPOD Blog
+- Get help and documentation in our Help Center
+- Rate us on WordPress
+- Contact us
 
 == Installation ==
 
@@ -36,21 +64,15 @@ Then, when a customer buys a SPOD product from your WooCommerce store the plugin
 
 == Frequently Asked Questions ==
 
-= How do I get an API Key? =
+= How do I get the SPOD API key to complete installation? =
 
-Go to https://www.spod.com and register for a user account. Within the account you can add a WooCommerce integration and you will get your API Key.
+Here’s how to find your API key:
 
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Open the SPOD app
+2. On your SPOD Dashboard, click Integrations, found on the left menu
+3. Under the WooCommerce section, click Connect
+4. Enter your store’s information
+5. Your API key will be generated and appear here
 
 == Changelog ==
 
