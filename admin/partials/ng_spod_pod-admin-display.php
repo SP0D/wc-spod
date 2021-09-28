@@ -7,8 +7,6 @@
  * @package    wc-spod
  * @subpackage wc-spod/admin/partials
  */
-$test = new SpodPodApiSubscriptions();
-print_r($test->getAllSubscriptions());
 ?>
 <div class="ng-box-wrapper">
     <div class="box">
