@@ -9,8 +9,6 @@ License: GPLv2 or later
 Requires PHP: 7.4
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-== Description ==
-
 ## Meet the industry’s fastest print-on-demand dropshipping provider!
 
 Meet SPOD. Our plugin equips you with everything you need to create, publish and sell custom-printed products in your WooCommerce setup. You simply upload your design on products from our collection, add it to your store and we will print, pack it and ship it for you directly to your customer.
