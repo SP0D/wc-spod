@@ -17,6 +17,9 @@ class SpodPodDeactivator {
     {
         global $wpdb;
 
+        update_option( 'spodpod_flush_rewrite_rules_flag', false );
+        flush_rewrite_rules();
+
         // plugin disconnection and product deleting only with woocommerce possible
         if ( function_exists( 'WC' ) ) {
             $Api = new SpodPodApiAuthentication();
@@ -32,7 +35,6 @@ class SpodPodDeactivator {
         $wpdb->query("TRUNCATE TABLE $table_name");
         $wpdb->query("DROP TABLE $table_name");
 
-        flush_rewrite_rules();
-	}
+    }
 
 }

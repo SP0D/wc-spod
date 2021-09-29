@@ -12,6 +12,10 @@ class SpodPodActivator {
 	{
         global $wpdb;
 
+        // set option
+        update_option( 'spodpod_flush_rewrite_rules_flag', true );
+
+        add_rewrite_rule('^wc-spod-webhook/([^/]*)/?', 'index.php?wcspodhooktype=$matches[1]', 'top');
         flush_rewrite_rules();
 
         $charset_collate = $wpdb->get_charset_collate();

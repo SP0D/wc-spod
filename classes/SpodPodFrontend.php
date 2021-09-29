@@ -46,7 +46,13 @@ class SpodPodFrontend
      */
     public function registerRewritePage()
     {
+        global $wp_rewrite;
         add_rewrite_rule('^wc-spod-webhook/([^/]*)/?', 'index.php?wcspodhooktype=$matches[1]', 'top');
+
+        if( get_option('spodpod_flush_rewrite_rules_flag')==1 ) {
+            flush_rewrite_rules();
+            update_option('spodpod_flush_rewrite_rules_flag', 0);
+        }
     }
 
     /**

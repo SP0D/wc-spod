@@ -117,7 +117,7 @@ class SpodPodPlugin {
      */
     private function defineFrontendHooks() {
         $plugin_admin = new SpodPodFrontend( $this->getPluginName(), $this->getVersion() );
-        $this->loader->add_action('init', $plugin_admin,  'registerRewritePage', 11, 1 );
+        $this->loader->add_action('init', $plugin_admin,  'registerRewritePage', 11, 0 );
         $this->loader->add_action('query_vars', $plugin_admin,  'queryWebhookVars', 10, 1 );
         $this->loader->add_action('parse_request', $plugin_admin,  'parseWebhookVars', 10, 1 );
     }
