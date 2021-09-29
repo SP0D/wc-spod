@@ -44,7 +44,6 @@ define('SPOD_SHOP_IMPORT_PRODUCTS', $table_product);
  */
 function spodpod_activate_spod_plugin() {
 	require_once plugin_dir_path( __FILE__ ) . 'classes/SpodPodActivator.php';
-	require_once plugin_dir_path( __FILE__ ) . 'tables.php';
     SpodPodActivator::activate();
 }
 
