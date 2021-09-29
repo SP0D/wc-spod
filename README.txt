@@ -1,4 +1,4 @@
-=== SPOD - Print On Demand Integration for WooCommerce ===
+=== SPOD Integration for WooCommerce ===
 Contributors: 5p0d
 Donate link: www.spod.com
 Tags: Print on demand, Dropshipping, Woocommerce, POD, Print, Print on demand Europe, Print on demand US, SPOD, T-Shirts, Spreadshirt, Apparel
@@ -9,14 +9,11 @@ License: GPLv2 or later
 Requires PHP: 7.4
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Connect your WooCommerce Shop to the leading provider of whitelabel print-on-demand services.
-Get an automatic product, order and order status synchronisation and a seamless integration into your WooCommerce setup ready within minutes.
-
 == Description ==
 
 ## Meet the industry’s fastest print-on-demand dropshipping provider!
 
-Meet SPOD.  Our plugin equips you with everything you need to create, publish and sell custom-printed products in your online store. You simply upload your design on products from our collection, add it to your store and we will print, pack it and ship it for you directly to your customer.
+Meet SPOD. Our plugin equips you with everything you need to create, publish and sell custom-printed products in your WooCommerce setup. You simply upload your design on products from our collection, add it to your store and we will print, pack it and ship it for you directly to your customer.
 With SPOD, you’ll enjoy lightning-fast 48-hour production and low prices to earn more from your shop in no time. Install our simple, easy-to-use plugin to get started with print on demand today!
 
 ## Why use the SPOD plugin for WooCommerce?
@@ -25,8 +22,8 @@ With SPOD, you’ll enjoy lightning-fast 48-hour production and low prices to ea
 - Wide assortment: 150+ products (and counting)
 - Worldwide shipping: factories in US & EU for localized production
 - Low prices from us, high margins for you: printed T-shirts start from just $6.71 / 8,08 €
-- Simple shipping prices based on order value: calculate your earnings without the headache
-- Expert production: 20 years printing experience, backed by Spreadshirt
+- Simple shipping prices based on order value
+- 20 years printing experience, backed by Spreadshirt
 - Happy customers, low return rates: less than 1% returns
 - Streamlined dashboard: keep tabs on your orders and revenue
 - Free design library: over 50k free designs to help you get started
