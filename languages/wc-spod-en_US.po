@@ -32,7 +32,7 @@ msgid "https://www.spod.com/"
 msgstr ""
 
 #. Author of the plugin
-msgid "SPOD - Spreadshirt-Print-On-Demand GmbH"
+msgid "SPOD - Spreadshirt-Print-On-Demand"
 msgstr ""
 
 #. Name of the plugin
