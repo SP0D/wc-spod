@@ -2,7 +2,7 @@
 /**
  * Provide a admin support view/form for the plugin
  *
- * @since      1.0.0
+ * @since      1.0.1
  *
  * @package    wc-spod
  * @subpackage wc-spod/admin/partials
@@ -16,7 +16,7 @@
         </div>
         <div class="box__headline">
             <h1><?php _e('Contact form','wc-spod'); ?></h1>
-            <p><?php _e('We\'re happy to supprt with technical questions only.', 'wc-spod');?></p>
+            <p><?php _e('We\'re happy to support with technical questions only.', 'wc-spod');?></p>
         </div>
         <div class="box__form ">
             <form action="#" method="post" class="" id="spod-api-support-form">
