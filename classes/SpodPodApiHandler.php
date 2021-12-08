@@ -10,7 +10,7 @@
 
 class SpodPodApiHandler
 {
-    protected $api_url = 'https://rest.spod.com/';
+    protected $api_url = 'https://rest.spod-staging.com/';
 
     /**
      * get main curl options
@@ -22,7 +22,7 @@ class SpodPodApiHandler
          return [
              'accept' => 'application/json',
              'content-Type' => 'application/json',
-             'user-agent' => 'WooCommerce/1.0',
+             'user-agent' => 'WooCommerce/'.SPOD_POD_VERSION,
              'X-SPOD-ACCESS-TOKEN' => get_option('ng_spod_pod_token')
          ];
      }

@@ -28,16 +28,17 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'SPOD_POD_VERSION', '1.0.0' );
+define( 'SPOD_POD_VERSION', '1.0.1' );
+define( 'MIN_WORDPRESS_VERSION_REQUIRED', 4.8 );
+define( 'MIN_WOOCOMMERCE_VERSION_REQUIRED', 4.7);
+define( 'MIN_PHP_VERSION_REQUIRED', 4.7);
 
 /**
  * Temporary table
  */
 global $wpdb;
-$table         =   $wpdb->prefix.'spod_shop_import_images';
-$table_product =   $wpdb->prefix.'spod_shop_import_products'; 
-define('SPOD_SHOP_IMPORT_IMAGES', $table);
-define('SPOD_SHOP_IMPORT_PRODUCTS', $table_product);
+define('SPOD_SHOP_IMPORT_IMAGES', $wpdb->prefix.'spod_shop_import_images');
+define('SPOD_SHOP_IMPORT_PRODUCTS', $wpdb->prefix.'spod_shop_import_products');
 
 /**
  * The code that runs during plugin activation.
@@ -76,5 +77,3 @@ function spodpod_run_spod_plugin() {
 
 }
 spodpod_run_spod_plugin();
-
-

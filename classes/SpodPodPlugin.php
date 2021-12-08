@@ -94,7 +94,7 @@ class SpodPodPlugin {
 	private function defineAdminHooks() {
 
 		$plugin_admin = new SpodPodAdmin( $this->getPluginName(), $this->getVersion() );
-        if (isset($_GET['page']) && ($_GET['page'] == 'wc-spod')) {
+        if (isset($_GET['page']) && ($_GET['page'] == 'wc-spod' || $_GET['page'] == 'wc-spod-requirements' || $_GET['page'] == 'wc-spod-support')) {
             $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
             $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
             $this->loader->add_filter('upload_mimes', $plugin_admin, 'addMimeType');

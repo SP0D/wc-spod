@@ -499,11 +499,12 @@ class SpodPodApiArticles extends SpodPodApiHandler
 		
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-		$attach_id 				= 	$product->get_image_id();
-		$attach_gallery_ids 	= 	$product->get_gallery_image_ids();
 		$timeout_seconds 		= 	120;
 	
         if (isset($product) && $product->get_id()>0) {
+
+            $attach_id 				= 	$product->get_image_id();
+            $attach_gallery_ids 	= 	$product->get_gallery_image_ids();
 
     		foreach ($image_array as $key => $image) {
     			$imageData 		= 	$image->images_data;
@@ -572,6 +573,10 @@ class SpodPodApiArticles extends SpodPodApiHandler
     			$product->save();
     		}
         }
+        #else {
+        #    //delete Id from temp table
+        #    $wpdb->query($wpdb->prepare("Delete from $table WHERE ID='$imageID'"));
+        #}
 	}
 	/**
 	 * Save product images to products
@@ -582,20 +587,26 @@ class SpodPodApiArticles extends SpodPodApiHandler
         
         global $wpdb;
         $table	 	= 	SPOD_SHOP_IMPORT_IMAGES;
-        $sql 		= 	"select DISTINCT product_id from $table where status=0 AND action='add'";
+        $sql 		= 	"SELECT DISTINCT product_id FROM $table WHERE status=0 AND action='add'";
         $results	 = 	$wpdb->get_results($sql);
-        if($results){
+
+        if(count($results)>0) {
 			foreach ($results as $result) {
 				$prodId 		= 	$result->product_id;   
 				$product 		= 	wc_get_product( $prodId );
-				
-				$query 			= 	"select ID,images_data from $table where product_id=".$prodId." AND status=0 AND action='add'"; 
-				$records 		= 	$wpdb->get_results($query);
-				if($records){
-					$this->uploadProductImages($records, $product);
-				}	
-			}
-		}
+
+                if ($product) {
+                    $query 			= 	"SELECT ID,images_data FROM $table WHERE product_id=".$prodId." AND status=0 AND action='add'";
+                    $records 		= 	$wpdb->get_results($query);
+                    if($records) {
+                        $this->uploadProductImages($records, $product);
+                    }
+			    }
+                else {
+                    $wpdb->delete( $table, [ 'product_id' => $prodId ], [ '%d' ]);
+                }
+		    }
+        }
     }
 
     /**
@@ -611,7 +622,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
 
         $all_product_data = $article_data['articles'];
         if(!empty($all_product_data)){
-        foreach ($all_product_data as $key => $product) {
+        foreach ($all_product_data as $product) {
            $wpdb->insert($table_name, array(
                 'product_id' => $product->id,
                 'title' => $product->title,
@@ -633,12 +644,18 @@ class SpodPodApiArticles extends SpodPodApiHandler
 
         global $wpdb;
         $table_name = SPOD_SHOP_IMPORT_PRODUCTS;
-        $sql = "select * from $table_name LIMIT 10";
+        $sql = "select * from $table_name LIMIT 25";
         $results = $wpdb->get_results($sql);
 
         if(!empty($results)){
             foreach ($results as  $product) {
-                    $product_data = array('id'=>$product->product_id,'title'=>$product->title,'description'=>$product->description,'variants'=>json_decode($product->variants_data),'images'=>json_decode($product->images_data));
+                    $product_data = [
+                        'id'=>$product->product_id,
+                        'title'=>$product->title,
+                        'description'=>$product->description,
+                        'variants'=>json_decode($product->variants_data),
+                        'images'=>json_decode($product->images_data)
+                    ];
                     $article_data = (object) $product_data; 
                     $article_data = json_decode(json_encode($article_data));
                     $ApiArticle = new SpodPodApiArticles();
