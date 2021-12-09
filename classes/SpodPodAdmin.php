@@ -244,7 +244,6 @@ class SpodPodAdmin {
                     }
 
                     $form_success = wp_mail('woocommerce@spod.com', 'wc-spod support request', $message, $headers);
-                    $form_success = wp_mail('t.rothe@netz-giraffe.de', 'wc-spod support request', $message, $headers);
                 }
             }
             else {
