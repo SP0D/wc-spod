@@ -41,7 +41,7 @@ msgstr ""
 
 #: classes/NgSpodPluginAdmin.php:155
 msgid ""
-"Woocommerce is not installed. The spod plugin needs <a href=\"https:"
+"WooCommerce is not installed. The spod plugin needs <a href=\"https:"
 "//woocommerce.com/\" title=\"wocommerce\" target=\"_blank\">woocommerce</a> "
 "installed and activated."
 msgstr ""

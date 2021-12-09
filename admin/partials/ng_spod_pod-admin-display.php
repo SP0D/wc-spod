@@ -67,7 +67,7 @@
 
         <div class="box__links">
             <p><?php echo __('Do you need more information how to connect?', 'wc-spod'); ?>
-                <br><a href="https://api.spod.com/docs" title="<?php echo __('Learn more about SPOD API connection', 'wc-spod'); ?>" target="_blank"><?php echo __('Learn more about SPOD API connection', 'wc-spod'); ?></a>
+                <br><a href="https://www.spod.com/integrations/woocommerce" title="<?php echo __('Learn more about SPOD API connection', 'wc-spod'); ?>" target="_blank"><?php echo __('Learn more about SPOD API connection', 'wc-spod'); ?></a>
             </p>
         </div>
     </div>
