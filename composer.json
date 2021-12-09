@@ -1,0 +1,13 @@
+{
+    "name": "spod/wc-spod",
+    "description": "SPOD Integration for WooCommerce",
+    "type": "library",
+    "authors": [
+        {
+            "name": "SPOD",
+            "email": "dev@spod.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
