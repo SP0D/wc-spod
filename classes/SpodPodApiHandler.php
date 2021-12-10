@@ -10,7 +10,7 @@
 
 class SpodPodApiHandler
 {
-    protected $api_url = 'https://rest.spod-staging.com/';
+    protected $api_url = 'https://rest.spod.com/';
 
     /**
      * get main curl options
