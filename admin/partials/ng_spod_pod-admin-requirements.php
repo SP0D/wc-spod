@@ -2,7 +2,7 @@
 /**
  * Provide a admin requirement view for the plugin
  *
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    wc-spod
  * @subpackage wc-spod/admin/partials

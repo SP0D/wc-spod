@@ -189,7 +189,7 @@ class SpodPodAdmin {
 
     /**
      * show submenu page requirements
-     * @since      1.0.1
+     * @since      1.1.0
      */
     public function adminRequirments()
     {
@@ -198,7 +198,7 @@ class SpodPodAdmin {
 
     /**
      * show submenu page support form
-     * @since      1.0.1
+     * @since      1.1.0
      */
     public function adminSupport()
     {
