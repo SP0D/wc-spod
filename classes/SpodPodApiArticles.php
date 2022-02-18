@@ -527,6 +527,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
 
     				$results = wp_handle_sideload( $file, $overrides );
     				if ( !empty( $results['error'] ) ) {
+
     				} else {
     					$attachment = array(
     						'post_mime_type' => $results['type'],

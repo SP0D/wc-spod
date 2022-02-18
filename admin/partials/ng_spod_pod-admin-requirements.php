@@ -91,5 +91,34 @@ $software_woocommerce_version = WC_VERSION;
                 </tbody>
             </table>
         </div>
+        <div class="box__form">
+            <h2 class="title"><?php _e('Plugin Logs','wc-spod'); ?></h2>
+            <table class="wc_status_table widefat" id="status" cellspacing="0">
+                <thead>
+                <tr>
+                    <th><?php _e('Event','wc-spod'); ?></th>
+                    <th><?php _e('Error','wc-spod'); ?></th>
+                    <th><?php _e('Date','wc-spod'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if (count($loggerEntries)>0) :
+                    foreach($loggerEntries as $loggerEntry): ?>
+                    <tr>
+                        <td><?php echo $loggerEntry->title; ?></td>
+                        <td><?php echo $loggerEntry->description; ?></td>
+                        <td><?php echo $loggerEntry->created_at; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td><?php _e('no entries found'); ?></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

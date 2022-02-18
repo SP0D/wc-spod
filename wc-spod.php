@@ -17,7 +17,7 @@
  * Domain Path:       /languages
  *
  * WC requires at least: 4.7
- * WC tested up to: 5.8
+ * WC tested up to: 6.2
  */
 
 // If this file is called directly, abort.
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'SPOD_POD_VERSION', '1.1.0' );
 define( 'MIN_WORDPRESS_VERSION_REQUIRED', 4.8 );
 define( 'MIN_WOOCOMMERCE_VERSION_REQUIRED', 4.7);
-define( 'MIN_PHP_VERSION_REQUIRED', 4.7);
+define( 'MIN_PHP_VERSION_REQUIRED', 5.6);
 
 /**
  * Temporary table
@@ -39,6 +39,7 @@ define( 'MIN_PHP_VERSION_REQUIRED', 4.7);
 global $wpdb;
 define('SPOD_SHOP_IMPORT_IMAGES', $wpdb->prefix.'spod_shop_import_images');
 define('SPOD_SHOP_IMPORT_PRODUCTS', $wpdb->prefix.'spod_shop_import_products');
+define('SPOD_SHOP_IMPORT_LOGS', $wpdb->prefix.'spod_shop_import_logs');
 
 /**
  * The code that runs during plugin activation.

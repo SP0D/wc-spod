@@ -5,6 +5,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiOrders.
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiSubscriptions.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiArticles.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiAuthentication.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodLogger.php';
 
 /**
  * The admin-specific functionality of the plugin.
@@ -179,10 +180,13 @@ class SpodPodAdmin {
      */
     public function adminDisplay()
     {
+        SpodPodLogger::logEvent('adminDisplay', 'es wurde die admin seite aufgerufen');
         $api_token = get_option('ng_spod_pod_token');
         $api_connected = get_option('ng_spod_pod_isconnected');
         $ApiAuthentication = new SpodPodApiAuthentication();
         $api_state = $api_token!=='' ? $ApiAuthentication->testAuthentication($api_token) :  false;
+
+        $dump = $this->buildDebugReport();
 
         include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-display.php';
     }
@@ -193,6 +197,8 @@ class SpodPodAdmin {
      */
     public function adminRequirments()
     {
+        $Logger = new SpodPodLogger();
+        $loggerEntries = $Logger->getLatestEvents();
         include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-requirements.php';
     }
 
@@ -348,80 +354,23 @@ class SpodPodAdmin {
     protected function buildDebugReport()
     {
         $return_string = '';
-
+        require_once './includes/class-wp-debug-data.php';
         $debug_infos = WP_Debug_Data::debug_data();
-        // core
-        if ( is_array($debug_infos['wp-core']) ) {
-            $return_string.= $debug_infos['wp-core']['label']."\n";
-            if ( isset($debug_infos['wp-core']['fields']) ) {
-                foreach ($debug_infos['wp-core']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
+        $fields = ['wp-core', 'wp-media', 'wp-active-theme', 'wp-parent-theme', 'wp-plugins-active', 'wp-plugins-inactive', 'wp-server', 'wp-database', 'wp-constants'];
+        foreach ($fields as $field) {
+            if ( is_array($debug_infos[$field]) ) {
+                $return_string.= $debug_infos[$field]['label']."\n";
+                if ( isset($debug_infos[$field]['fields']) ) {
+                    foreach ($debug_infos[$field]['fields'] as $debug_field) {
+                        $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
+                    }
                 }
             }
         }
-        // active themes
-        if ( is_array($debug_infos['wp-active-theme']) ) {
-            $return_string.= $debug_infos['wp-active-theme']['label']."\n";
-            if ( isset($debug_infos['wp-active-theme']['fields']) ) {
-                foreach ($debug_infos['wp-active-theme']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // parent themes
-        if ( is_array($debug_infos['wp-parent-theme']) ) {
-            $return_string.= $debug_infos['wp-parent-theme']['label']."\n";
-            if ( isset($debug_infos['wp-parent-theme']['fields']) ) {
-                foreach ($debug_infos['wp-parent-theme']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // wp-plugins-active
-        if ( is_array($debug_infos['wp-plugins-active']) ) {
-            $return_string.= $debug_infos['wp-plugins-active']['label']."\n";
-            if ( isset($debug_infos['wp-plugins-active']['fields']) ) {
-                foreach ($debug_infos['wp-plugins-active']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // wp-plugins-inactive
-        if ( is_array($debug_infos['wp-plugins-inactive']) ) {
-            $return_string.= $debug_infos['wp-plugins-inactive']['label']."\n";
-            if ( isset($debug_infos['wp-plugins-inactive']['fields']) ) {
-                foreach ($debug_infos['wp-plugins-inactive']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // wp-server
-        if ( is_array($debug_infos['wp-server']) ) {
-            $return_string.= $debug_infos['wp-server']['label']."\n";
-            if ( isset($debug_infos['wp-server']['fields']) ) {
-                foreach ($debug_infos['wp-server']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // wp-database
-        if ( is_array($debug_infos['wp-database']) ) {
-            $return_string.= $debug_infos['wp-database']['label']."\n";
-            if ( isset($debug_infos['wp-database']['fields']) ) {
-                foreach ($debug_infos['wp-database']['fields'] as $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
-        // wp-database
-        if ( is_array($debug_infos['wp-constants']) ) {
-            $return_string.= $debug_infos['wp-constants']['label']."\n";
-            if ( isset($debug_infos['wp-constants']['fields']) ) {
-                foreach ($debug_infos['wp-constants']['fields'] as $key => $debug_field) {
-                    $return_string.= $debug_field['label'].": ".$debug_field['value']."\n";
-                }
-            }
-        }
+        $return_string.= "\n".'Log Entries: '."\n";
+        $Logger = new SpodPodLogger();
+        $latestEntries = $Logger->getLatestEvents(100);
+        if
 
         return $return_string;
     }

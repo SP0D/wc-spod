@@ -166,6 +166,7 @@ class SpodPodApiOrders extends SpodPodApiHandler
             ];
 
             $return_order['shipping']['preferredType'] = 'STANDARD';
+            // $order->get_shipping_method()
             $return_order['billingAddress'] = $billing_address;
             $return_order['phone'] = $order->get_billing_phone();
             $return_order['email'] =$order->get_billing_email();

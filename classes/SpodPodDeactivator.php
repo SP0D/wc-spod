@@ -35,6 +35,10 @@ class SpodPodDeactivator {
         $wpdb->query("TRUNCATE TABLE $table_name");
         $wpdb->query("DROP TABLE $table_name");
 
+        $table_name = SPOD_SHOP_IMPORT_LOGS;
+        $wpdb->query("TRUNCATE TABLE $table_name");
+        $wpdb->query("DROP TABLE $table_name");
+
     }
 
 }
