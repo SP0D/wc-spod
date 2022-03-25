@@ -1,4 +1,7 @@
 .idea
+.sass-cache
+/admin/config.rb
+file-*.json
 *.iml
-
+/admin/_dev
 /vendor/

@@ -180,13 +180,10 @@ class SpodPodAdmin {
      */
     public function adminDisplay()
     {
-        SpodPodLogger::logEvent('adminDisplay', 'es wurde die admin seite aufgerufen');
         $api_token = get_option('ng_spod_pod_token');
         $api_connected = get_option('ng_spod_pod_isconnected');
         $ApiAuthentication = new SpodPodApiAuthentication();
         $api_state = $api_token!=='' ? $ApiAuthentication->testAuthentication($api_token) :  false;
-
-        $dump = $this->buildDebugReport();
 
         include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-display.php';
     }
@@ -199,6 +196,7 @@ class SpodPodAdmin {
     {
         $Logger = new SpodPodLogger();
         $loggerEntries = $Logger->getLatestEvents();
+
         include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-requirements.php';
     }
 
@@ -355,6 +353,7 @@ class SpodPodAdmin {
     {
         $return_string = '';
         require_once './includes/class-wp-debug-data.php';
+        // Debug Data Wordpress
         $debug_infos = WP_Debug_Data::debug_data();
         $fields = ['wp-core', 'wp-media', 'wp-active-theme', 'wp-parent-theme', 'wp-plugins-active', 'wp-plugins-inactive', 'wp-server', 'wp-database', 'wp-constants'];
         foreach ($fields as $field) {
@@ -367,10 +366,16 @@ class SpodPodAdmin {
                 }
             }
         }
-        $return_string.= "\n".'Log Entries: '."\n";
+
+        // Debug Data Spod Logger
         $Logger = new SpodPodLogger();
         $latestEntries = $Logger->getLatestEvents(100);
-        if
+        if (count($latestEntries)) {
+            $return_string.= "\n".'Log Entries: '."\n";
+            foreach ($latestEntries as $latestEntry) {
+                $return_string.= $latestEntry->title.": ".$latestEntry->description." ".$latestEntry->created_at."\n";
+            }
+        }
 
         return $return_string;
     }
