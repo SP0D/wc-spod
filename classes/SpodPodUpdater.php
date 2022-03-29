@@ -15,8 +15,7 @@ class SpodPodUpdater
         $plugin_version = get_option('spodpod_plugin_version');
         $new_plugin_version = "1.2.0";
         if (version_compare($plugin_version, $new_plugin_version, '<')) {
-            echo 'update';
-            // version 1.2.0 logger
+            // version 1.2.0 update
             $table_import_log = SPOD_SHOP_IMPORT_LOGS;
             $charset_collate = $wpdb->get_charset_collate();
 
