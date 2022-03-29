@@ -167,6 +167,9 @@ class SpodPodApiOrders extends SpodPodApiHandler
 
             $shipping_preferredType = 'STANDARD';
             $shipping_method = $order->get_shipping_method();
+            if (strpos(strtolower($shipping_method), 'premium')) {
+                $shipping_preferredType = 'PREMIUM';
+            }
             if (strpos(strtolower($shipping_method), 'express')) {
                 $shipping_preferredType = 'EXPRESS';
             }

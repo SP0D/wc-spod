@@ -10,7 +10,7 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiAuthent
 class SpodPodDeactivator {
 
 	/**
-	 *
+	 * delete tables and plugin options
 	 * @since    1.0.0
 	 */
 	public static function deactivate()
@@ -19,6 +19,8 @@ class SpodPodDeactivator {
 
         update_option( 'spodpod_flush_rewrite_rules_flag', false );
         flush_rewrite_rules();
+
+        delete_option('spodpod_plugin_version');
 
         // plugin disconnection and product deleting only with woocommerce possible
         if ( function_exists( 'WC' ) ) {

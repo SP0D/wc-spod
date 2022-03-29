@@ -17,7 +17,7 @@
  * Domain Path:       /languages
  *
  * WC requires at least: 4.7
- * WC tested up to: 6.2.1
+ * WC tested up to: 6.3.1
  */
 
 // If this file is called directly, abort.
@@ -61,11 +61,22 @@ register_activation_hook( __FILE__, 'spodpod_activate_spod_plugin' );
 register_deactivation_hook( __FILE__, 'spodpod_deactivate_spod_plugin' );
 
 /**
+ * plugin update check.
+ */
+function spodpod_update_spod_plugin() {
+    require_once plugin_dir_path( __FILE__ ) . 'classes/SpodPodUpdater.php';
+    SpodPodUpdater::update120();
+}
+add_action('plugins_loaded', 'spodpod_update_spod_plugin');
+
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'classes/SpodPodPlugin.php';
 require plugin_dir_path( __FILE__ ) . 'cron.php';
+
 /**
  * Begins execution of the plugin.
  *

@@ -2,7 +2,7 @@
 /**
  * Save events for reporting
  *
- * @since      1.1.1
+ * @since      1.2.0
  * @package    wc-spod
  * @subpackage wc-spod/classes
  */

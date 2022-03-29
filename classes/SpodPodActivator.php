@@ -6,14 +6,19 @@
  * @package    wc-spod
  * @subpackage wc-spod/classes
  */
-class SpodPodActivator {
-
+class SpodPodActivator
+{
+    /**
+     * create tables and options
+     * @since    1.0.0
+     */
 	public static function activate()
 	{
         global $wpdb;
 
         // set option
-        update_option( 'spodpod_flush_rewrite_rules_flag', true );
+        update_option('spodpod_flush_rewrite_rules_flag', true);
+        update_option('spodpod_plugin_version', SPOD_POD_VERSION);
 
         add_rewrite_rule('^wc-spod-webhook/([^/]*)/?', 'index.php?wcspodhooktype=$matches[1]', 'top');
         flush_rewrite_rules();
@@ -55,10 +60,9 @@ class SpodPodActivator {
           PRIMARY KEY  (id)
         ) $charset_collate;";
 
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql1);
         dbDelta($sql2);
         dbDelta($sql3);
 	}
-	
 }
