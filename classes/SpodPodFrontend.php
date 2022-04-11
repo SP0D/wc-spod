@@ -84,6 +84,7 @@ class SpodPodFrontend
     /**
      *
      * @param string $type
+     * @return string
      * @since 1.0.0
      */
     protected function handleWebhook($type)

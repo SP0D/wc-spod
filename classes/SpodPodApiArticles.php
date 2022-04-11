@@ -261,7 +261,8 @@ class SpodPodApiArticles extends SpodPodApiHandler
      * @param bool $with_parent
      * @return
      */
-    public function deleteArticle($sku, $with_parent = true) {
+    public function deleteArticle($sku, $with_parent = true)
+    {
         global $wpdb;
         #echo 'delete: '.$sku;
         // check for sku in post_meta
@@ -278,7 +279,6 @@ class SpodPodApiArticles extends SpodPodApiHandler
 
             $parent_id = $product->get_parent_id();
             if ((int) $parent_id>0 && $with_parent===true) {
-                #var_dump($parent_id);
                 #$productParent = new WC_Product_Variable($data->post_id);
                 $productParent = new WC_Product($parent_id);
                 $this->deleteArticleImages($productParent);
@@ -303,7 +303,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
 
         $attach_id 				= 	$product->get_image_id();
         $attach_gallery_ids 	= 	$product->get_gallery_image_ids();
-        if ( (int) $attach_id>0 ) {
+        if ((int) $attach_id>0) {
             $product->set_image_id('');
             $product->set_gallery_image_ids([]);
 			if(!empty($attach_id)){
@@ -316,7 +316,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
                     ));
             }
 
-            if( count($attach_gallery_ids) ) {
+            if(count($attach_gallery_ids)) {
                 foreach ($attach_gallery_ids as $a_id) {
                     $table = SPOD_SHOP_IMPORT_IMAGES;
                     $wpdb->insert($table, array(
@@ -336,18 +336,18 @@ class SpodPodApiArticles extends SpodPodApiHandler
      */
     public function deleteProductImages()
     { 
-           global $wpdb;
-           $table      =   SPOD_SHOP_IMPORT_IMAGES;
-           $sql        =   "select ID,attachment_id from $table where status=0 AND action='delete'";
-            
-            $results   =  $wpdb->get_results($sql);
-            if(!empty($results)){
-               foreach ($results as $image) {
-                   $imageID  =   $image->ID;
-                   wp_delete_attachment($image->attachment_id, true);
-                   $wpdb->query($wpdb->prepare("Delete from $table WHERE ID='$imageID'"));
-               }
-            }
+        global $wpdb;
+        $table = SPOD_SHOP_IMPORT_IMAGES;
+        $sql = "select ID,attachment_id from $table where status=0 AND action='delete'";
+
+        $results = $wpdb->get_results($sql);
+        if(!empty($results)){
+           foreach ($results as $image) {
+               $imageID = $image->ID;
+               wp_delete_attachment($image->attachment_id, true);
+               $wpdb->query($wpdb->prepare("Delete from $table WHERE ID='$imageID'"));
+           }
+       }
     }
 
 
@@ -386,7 +386,6 @@ class SpodPodApiArticles extends SpodPodApiHandler
     protected function uploadImages($image_array = [], $product)
     {
         global $wpdb;
-
         $this->deleteArticleImages($product);
         $attach_id = $product->get_image_id();
         $attach_gallery_ids = $product->get_gallery_image_ids();
@@ -399,7 +398,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
             #var_dump($image->id);
             $temp_file = download_url( $image->imageUrl, $timeout_seconds );
             if ( !is_wp_error( $temp_file ) ) {
-                $file_name = 'image-'.$image->id.'-'.$image->productId.'.png';
+                $file_name = 'image-'.$image->id.'-'.$image->productId.'-'.$image->appearanceId.'.png';
                 $file = array(
                     'name'     => $file_name,
                     'type'     => 'image/png',
@@ -413,9 +412,11 @@ class SpodPodApiArticles extends SpodPodApiHandler
                     'test_size' => true,
                 );
 
+                SpodPodLogger::logEvent('cron product import', 'import  '.$file_name);
                 $results = wp_handle_sideload( $file, $overrides );
 
                 if ( !empty( $results['error'] ) ) {
+                    SpodPodLogger::logEvent('cron product import', 'wp_handle_sideload error '.$results['error']);
                 } else {
                     $attachment = array(
                         'post_mime_type' => $results['type'],
@@ -425,12 +426,17 @@ class SpodPodApiArticles extends SpodPodApiHandler
                     );
 
                     $attach_id = wp_insert_attachment( $attachment, $results['file'] );
-                    wp_update_attachment_metadata( $attach_id, wp_generate_attachment_metadata( $attach_id,  $results['file'] ) );
-
                     if ( $key==0 && (int) $attach_id>0 ) {
                         $product->set_image_id($attach_id);
                     }
                     if ( (int) $attach_id>0 ) {
+                        $imagenew = get_post( $attach_id );
+                        $fullsizepath = get_attached_file( $imagenew->ID );
+                        $attachment_metadata = wp_generate_attachment_metadata( $attach_id, $fullsizepath );
+                        if(count($attachment_metadata)==0) {
+                            SpodPodLogger::logEvent('cron product import', 'wp_generate_attachment_metadata not working');
+                        }
+                        wp_update_attachment_metadata( $attach_id, $attachment_metadata );
                         if ($key>0) {
                             $attach_gallery_ids[] = $attach_id;
                         }
@@ -449,10 +455,16 @@ class SpodPodApiArticles extends SpodPodApiHandler
                             }
                         }
                     }
+                    else {
+                        SpodPodLogger::logEvent('cron product import', 'wp_insert_attachment not happened');
+                    }
                 }
             }
+            else {
+                SpodPodLogger::logEvent('cron product import', 'file dowload error  '.is_wp_error( $temp_file ));
+            }
 
-            if( count($attach_gallery_ids)>0 ) {
+            if(count($attach_gallery_ids)>0) {
                 $product->set_gallery_image_ids($attach_gallery_ids);
             }
             $product->save();
@@ -495,7 +507,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
     protected function uploadProductImages($image_array = [], $product)
     {
 		global $wpdb;
-        $table	 	= 	SPOD_SHOP_IMPORT_IMAGES;
+        $table = SPOD_SHOP_IMPORT_IMAGES;
 		
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -512,7 +524,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
                 $image 			= 	json_decode($imageData);
     			$temp_file 		= 	download_url( $image->imageUrl, $timeout_seconds );
     			if ( !is_wp_error( $temp_file ) ) {
-    				$file_name = 'image-'.$image->id.'-'.$image->productId.'.png';
+                    $file_name = 'image-'.$image->id.'-'.$image->productId.'-'.$image->appearanceId.'.png';
     				$file = array(
     					'name'     => $file_name,
     					'type'     => 'image/png',
@@ -525,8 +537,10 @@ class SpodPodApiArticles extends SpodPodApiHandler
     					'test_size' => true,
     				);
 
+                    SpodPodLogger::logEvent('cron product import', 'product ID '.$product->get_id().' import  '.$file_name);
     				$results = wp_handle_sideload( $file, $overrides );
     				if ( !empty( $results['error'] ) ) {
+                        SpodPodLogger::logEvent('cron product import', 'wp_handle_sideload error '.$results['error']);
     				} else {
     					$attachment = array(
     						'post_mime_type' => $results['type'],
@@ -536,25 +550,30 @@ class SpodPodApiArticles extends SpodPodApiHandler
     					);
 
     					$attach_id = wp_insert_attachment( $attachment, $results['file'] );
-    					wp_update_attachment_metadata( $attach_id, wp_generate_attachment_metadata( $attach_id,  $results['file'] ) );
-                        
-                        //delete Id from temp table
-                        $wpdb->query($wpdb->prepare("Delete from $table WHERE ID='$imageID'"));
 
-
-    					if ( $key==0 && (int) $attach_id>0 ) {
+    					if ($key==0 && (int) $attach_id>0) {
     						$product->set_image_id($attach_id);
     					}
-    					if ( (int) $attach_id>0 ) {
+    					if ((int) $attach_id>0) {
     						if ($key>0) {
     							$attach_gallery_ids[] = $attach_id;
     						}
+                            $imagenew = get_post($attach_id);
+                            $fullsizepath = get_attached_file($imagenew->ID);
+                            $attachment_metadata = wp_generate_attachment_metadata($attach_id, $fullsizepath);
+                            if(count($attachment_metadata)==0) {
+                                SpodPodLogger::logEvent('cron product import', 'wp_generate_attachment_metadata not working');
+                            }
+                            wp_update_attachment_metadata( $attach_id, $attachment_metadata );
+
+                            //delete Id from temp table
+                            $wpdb->query($wpdb->prepare("Delete from $table WHERE ID='$imageID'"));
 
     						// combine variants with images
     						$sql = "SELECT pm.post_id,p.post_type FROM $wpdb->postmeta pm LEFT JOIN $wpdb->posts as p ON p.ID = pm.post_id WHERE pm.meta_key='_spod_product_image_id' AND pm.meta_value = '%s'";
     						$productData = $wpdb->get_results($wpdb->prepare($sql, $image->id));
 
-    						if ( count($productData)>0 ) {
+    						if (count($productData)>0) {
     							foreach ($productData as $_imageInfo) {
     								if ($_imageInfo->post_type==='product_variation') {
     									$productV = new WC_Product_Variation($_imageInfo->post_id);
@@ -564,9 +583,15 @@ class SpodPodApiArticles extends SpodPodApiHandler
     							}
     						}
     					}
-    				}
+                        else {
+                            SpodPodLogger::logEvent('cron product import', 'wp_insert_attachment not working');
+                        }
+                    }
     			}
-    			if( count($attach_gallery_ids)>0 ) {
+                else {
+                    SpodPodLogger::logEvent('cron product import', 'file download error  '.is_wp_error( $temp_file ));
+                }
+    			if(count($attach_gallery_ids)>0) {
     				$product->set_gallery_image_ids($attach_gallery_ids);
     			}
                 
@@ -583,8 +608,8 @@ class SpodPodApiArticles extends SpodPodApiHandler
 	 * @since      1.0.0
 	 * @return void
 	 */
-    public function saveProductImages(){
-        
+    public function saveProductImages()
+    {
         global $wpdb;
         $table	 	= 	SPOD_SHOP_IMPORT_IMAGES;
         $sql 		= 	"SELECT DISTINCT product_id FROM $table WHERE status=0 AND action='add'";
@@ -615,23 +640,24 @@ class SpodPodApiArticles extends SpodPodApiHandler
      * @return void
      * @param object $article_data
      */
-    public function insertAllProductsDatabase($article_data){
+    public function insertAllProductsDatabase($article_data)
+    {
         global $wpdb;
         $table_name = SPOD_SHOP_IMPORT_PRODUCTS;
         $wpdb->query("TRUNCATE TABLE $table_name");
 
         $all_product_data = $article_data['articles'];
         if(!empty($all_product_data)){
-        foreach ($all_product_data as $product) {
-           $wpdb->insert($table_name, array(
-                'product_id' => $product->id,
-                'title' => $product->title,
-                'description' => $product->description,
-                'variants_data' => json_encode($product->variants),
-                'images_data' => json_encode($product->images), 
-                'status' => 0, 
-            ));
-        }
+            foreach ($all_product_data as $product) {
+               $wpdb->insert($table_name, array(
+                    'product_id' => $product->id,
+                    'title' => $product->title,
+                    'description' => $product->description,
+                    'variants_data' => json_encode($product->variants),
+                    'images_data' => json_encode($product->images),
+                    'status' => 0,
+                ));
+            }
         }
     }
 
@@ -640,11 +666,11 @@ class SpodPodApiArticles extends SpodPodApiHandler
      * @since      1.0.0
      * @return void
      */
-    public function addSaveProducts(){
-
+    public function addSaveProducts()
+    {
         global $wpdb;
         $table_name = SPOD_SHOP_IMPORT_PRODUCTS;
-        $sql = "select * from $table_name LIMIT 25";
+        $sql = "select * from $table_name LIMIT 50";
         $results = $wpdb->get_results($sql);
 
         if(!empty($results)){

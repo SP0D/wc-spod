@@ -165,17 +165,23 @@ class SpodPodApiOrders extends SpodPodApiHandler
                 'currency' => $order->get_currency()
             ];
 
-            $return_order['shipping']['preferredType'] = 'STANDARD';
+            $shipping_preferredType = 'STANDARD';
+            $shipping_method = $order->get_shipping_method();
+            if (strpos(strtolower($shipping_method), 'premium')) {
+                $shipping_preferredType = 'PREMIUM';
+            }
+            if (strpos(strtolower($shipping_method), 'express')) {
+                $shipping_preferredType = 'EXPRESS';
+            }
+            $return_order['shipping']['preferredType'] = $shipping_preferredType;
+
             $return_order['billingAddress'] = $billing_address;
             $return_order['phone'] = $order->get_billing_phone();
             $return_order['email'] =$order->get_billing_email();
             $return_order['externalOrderReference'] = $order->get_order_key().'--'.$order_id;
-            // $return_order['state'] = $order->get_status();
             $return_order['state'] = 'CONFIRMED';
-            #$return_order['customerTaxTyp'] = (get_option('woocommerce_calc_taxes')=='yes' ? 'VAT' : 'NOT_TAXABLE');
             $return_order['customerTaxTyp'] = 'NOT_TAXABLE';
             $return_order['order_id'] = $order_id;
-
 
             return $return_order;
         }
@@ -201,7 +207,7 @@ class SpodPodApiOrders extends SpodPodApiHandler
 
     /**
      * submit cancel info to spod
-     * @param $spod_order_id
+     * @param int $spod_order_id
      */
     public function cancelOrder($spod_order_id)
     {
@@ -224,9 +230,10 @@ class SpodPodApiOrders extends SpodPodApiHandler
 
         $stmt = "SELECT pm1.post_id, pm2.meta_value AS _spod_order FROM $wpdb->postmeta AS pm1
                             LEFT JOIN $wpdb->postmeta AS pm2 ON pm2.post_id = pm1.post_id 
-                            WHERE pm1.meta_key='_spod_order_id' AND pm1.meta_value=%s"; // AND pm2.meta_key='_spod_order'";
+                            WHERE pm1.meta_key='_spod_order_id' AND pm1.meta_value=%s";
         $order_check = $wpdb->get_row($wpdb->prepare( $stmt, $spod_order_id));
-        if (isset($order_check->post_id) && isset($order_check->_spod_order) ) { #&& $order_check->_spod_order==1) {
+
+        if (isset($order_check->post_id) && isset($order_check->_spod_order) ) {
             $Order = wc_get_order($order_check->post_id);
             if($method=='order_cancelled') {
                 if ($Order->get_status()!=='cancelled') {
@@ -243,7 +250,6 @@ class SpodPodApiOrders extends SpodPodApiHandler
                 $Order->add_order_note( 'Tracking Infos: '.$infos );
             }
             $Order->save();
-
         }
     }
 }
