@@ -79,6 +79,15 @@ Here’s how to find your API key:
 
 == Changelog ==
 
+= 1.2 =
+* express and premium shipping type
+* improved debug log for image upload
+
+= 1.1 =
+* new contact form page
+* new system report page
+* fixing of product image import bug
+
 = 1.0 =
 * initial release
 
