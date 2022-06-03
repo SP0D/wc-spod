@@ -35,10 +35,9 @@ class SpodPodActivator
           action varchar(255) NOT NULL,
           status int(11) NOT NULL,
           attachment_id int(11),	
-          created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY  (id)
-        ) $charset_collate;";
-
+        )";
 
         $sql2 = "CREATE TABLE $table_import_products (
           ID mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -48,17 +47,17 @@ class SpodPodActivator
           variants_data text,
           images_data text,
           status int(11) NOT NULL,
-          created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY  (id)
-        ) $charset_collate;";
+        )";
 
         $sql3 = "CREATE TABLE $table_import_log (
           ID mediumint(9) NOT NULL AUTO_INCREMENT,
           title varchar(255) NOT NULL,
           description text,
-          created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           PRIMARY KEY  (id)
-        ) $charset_collate;";
+        )";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql1);
