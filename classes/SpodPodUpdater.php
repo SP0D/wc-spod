@@ -25,7 +25,7 @@ class SpodPodUpdater
               description text,
               created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
               PRIMARY KEY  (id)
-            ) $charset_collate;";
+            )";
 
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             dbDelta($sql);
