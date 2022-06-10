@@ -19,7 +19,7 @@ With SPOD, you’ll enjoy lightning-fast **48-hour production** and **low prices
 - **Fastest turnaround in the industry:** 48 hours or less
 - **Wide assortment:** <a href="https://www.spod.com/products/?affiliateID=12890">200+ products (and counting)</a>
 - **Worldwide shipping:** factories in US & EU for localized production
-- **Low prices from us, high margins for you:** printed T-shirts start from just $6.71 / 8,08 €
+- **Low prices from us, high margins for you:** printed T-shirts start from just $7.11 / 8,08 €
 - **Simple shipping prices** based on order value
 - **20 years printing experience**, backed by Spreadshirt
 - **Happy customers, low return rates:** less than 1% returns
