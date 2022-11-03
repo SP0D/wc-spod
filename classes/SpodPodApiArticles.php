@@ -294,8 +294,6 @@ class SpodPodApiArticles extends SpodPodApiHandler
      * delete product images from products
      * @since      1.0.0
      * @param WC_Product $product
-     * @param int $article_image
-     * @param array $gallery_images
      */
     protected function deleteArticleImages($product)
     {   
@@ -355,11 +353,11 @@ class SpodPodApiArticles extends SpodPodApiHandler
      /**
      * Insert images data to temporary table
      * @since      1.0.0
-     * @param array $image_array
      * @param object $product
+     * @param array $image_array
      * @return void
      */
-    protected function insertImageDataToTemp($image_array = [], $product)
+    protected function insertImageDataToTemp($product, $image_array = [])
     {
         global $wpdb;
         $this->deleteArticleImages($product);
@@ -379,11 +377,11 @@ class SpodPodApiArticles extends SpodPodApiHandler
     /**
      * upload image, attach to mediathek and wc_product
      * @since      1.0.0
-     * @param array $image_array
      * @param object $product
+     * @param array $image_array
      * @return void
      */
-    protected function uploadImages($image_array = [], $product)
+    protected function uploadImages($product, $image_array = [])
     {
         global $wpdb;
         $this->deleteArticleImages($product);
@@ -500,11 +498,11 @@ class SpodPodApiArticles extends SpodPodApiHandler
 	 /**
      * upload image, attach to mediathek and wc_product
      * @since      1.0.0
-     * @param array $image_array
      * @param object $product
+     * @param array $image_array
      * @return void
      */
-    protected function uploadProductImages($image_array = [], $product)
+    protected function uploadProductImages($product, $image_array = [])
     {
 		global $wpdb;
         $table = SPOD_SHOP_IMPORT_IMAGES;
