@@ -8,7 +8,7 @@
  * Plugin Name:       SPOD Pod Plugin
  * Plugin URI:        https://www.spod.com/
  * Description:       Connect your WooCommerce Shop to the leading provider of whitelabel print-on-demand services. Get an automatic product, order and order status synchronisation and a seamless integration into your WooCommerce setup ready within minutes.
- * Version:           1.2.0
+ * Version:           1.2.2
  * Author:            SPOD - Spreadshirt-Print-On-Demand
  * Author URI:        https://www.spod.com
  * License:           GPL-2.0+
