@@ -74,7 +74,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
             $product = $this->generateVariantProduct($article);
         }
         //$this->uploadImages($article->images, $product);
-        $this->insertImageDataToTemp($article->images, $product);
+        $this->insertImageDataToTemp($product, $article->images);
     }   
 
     /**
@@ -622,7 +622,7 @@ class SpodPodApiArticles extends SpodPodApiHandler
                     $query 			= 	"SELECT ID,images_data FROM $table WHERE product_id=".$prodId." AND status=0 AND action='add'";
                     $records 		= 	$wpdb->get_results($query);
                     if($records) {
-                        $this->uploadProductImages($records, $product);
+                        $this->uploadProductImages($product, $records);
                     }
 			    }
                 else {

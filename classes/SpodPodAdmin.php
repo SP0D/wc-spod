@@ -76,8 +76,6 @@ class SpodPodAdmin {
         add_menu_page( __('Spod', 'wc-spod'), __('Spod','wc-spod'), 'manage_woocommerce', 'wc-spod', array(&$this, 'adminDisplay'), ' data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAATCAYAAACQjC21AAAEumlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iCiAgICB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMTkiCiAgIHRpZmY6SW1hZ2VXaWR0aD0iMjAiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249IjcyLjAiCiAgIHRpZmY6WVJlc29sdXRpb249IjcyLjAiCiAgIGV4aWY6UGl4ZWxYRGltZW5zaW9uPSIyMCIKICAgZXhpZjpQaXhlbFlEaW1lbnNpb249IjE5IgogICBleGlmOkNvbG9yU3BhY2U9IjEiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjEtMDMtMTdUMTM6NDA6MjMrMDE6MDAiCiAgIHhtcDpNZXRhZGF0YURhdGU9IjIwMjEtMDMtMTdUMTM6NDA6MjMrMDE6MDAiPgogICA8eG1wTU06SGlzdG9yeT4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgRGVzaWduZXIgKEZlYiAgMiAyMDIxKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyMS0wMy0xN1QxMzo0MDoyMyswMTowMCIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+vnWhKwAAAYJpQ0NQc1JHQiBJRUM2MTk2Ni0yLjEAACiRdZHfK4NRGMc/24iYEBcuXCxtrkZMLVLKlkYtrZny62Z77Yfaj7f33dJyq9yuKHHj1wV/AbfKtVJESu6Ua+IGvZ7X1JbsOT3n+ZzvOc/TOc8BayStZPS6Achk81o44HPMzS84Gp6w0Y4dF6NRRVfHQ6EgNe39FosZr/vMWrXP/WvNy3FdAUuj8JiiannhSeHgal41eUu4U0lFl4VPhN2aXFD4xtRjZX42OVnmT5O1SNgP1jZhR7KKY1WspLSMsLwcZyZdUH7vY77EHs/OzkjsEe9GJ0wAHw6mmMCPl0FGZPbSh4d+WVEjf+Anf5qc5CoyqxTRWCFJijxuUQtSPS4xIXpcRpqi2f+/fdUTQ55ydbsP6h8N49UFDZvwVTKMjwPD+DoE2wOcZyv5uX0YfhO9VNGce9C6DqcXFS22DWcb0HWvRrXoj2QTtyYS8HIMLfPQcQVNi+We/e5zdAeRNfmqS9jZhV4537r0DY7jZ/jyYKgCAAAACXBIWXMAAAsTAAALEwEAmpwYAAACO0lEQVQ4ja1UPWgUURD+Zveyl2SDEKIx1aGNIIiFCIJaWCmCgpWQwka7q1QUFAI2gdipWEULKwuLpLWwFLESVFCCin8pDmyEu9v3ZmazbywumrvcbkyRKd/M98335n3zgB0O2k4Rq5IVhBAUaZraVrVRVcKJ7PYiTc/y0wwBkQWKa2uO5XnGckxERrat0IlcINAzAMn6UQ4gAKgBiAHAzN6HIj41kdZ+b6kwY75HoGUAicG+kNlxg00abNLMpsxwG8AaER2O4uIzM08PKZI83+9EzjvmphctvKhlnptd5mSoGIBj3utYPnhR86KPBhVlWexFeT1pXtQc87VWywgAvEjDi97PPC85ketONe7h/LRjmfcsh4Zm6FjuEuEgQAXMXoSIHqdJsuZYzxHhKYBdfZiPZjg5PpoMzO6/YWaxZ/3er/zfDUQeVOEqfei8P0JR/KaiWT5WT0aJKGzOVfrQLBoq7ouwurpamqgkTMfrbwF8K++Gh41Go7ThACFrPtF1fLXdbtd6OJs1s2JQubWA+A4AeO+nPMuiY1l2rLeG2D3Lq97g8/m/Z45lj1Od9aJzrHqiUxQJAHQ6nQkn+qPvsdrDhCJH140dHMucmZWvpuo+J7rS86y+85pfzpw/A2x6ZeccIYpvENECejv72oI9MbKXMZCFgAOI6CIRXQIwZoZPZnY2Hat/LWu8Qcx8xbH+KvPgxjbpkvcysxlb6cNut5tGtZGbRHQawAx6P03bQlixiBbSer3UozsefwAUyqPWXPUQ2gAAAABJRU5ErkJggg==', 90 );
         add_submenu_page('wc-spod', __('System Report', 'wc-spod'), __('System Report', 'wc-spod'), 'manage_woocommerce', 'wc-spod-requirements', array(&$this, 'adminRequirments'), 1);
         add_submenu_page('wc-spod', __('Support', 'wc-spod'), __('Support', 'wc-spod'), 'manage_woocommerce', 'wc-spod-support', array(&$this, 'adminSupport'), 2);
-
-        //add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function = '', $position = null ) {
     }
 
     /**
@@ -349,6 +347,11 @@ class SpodPodAdmin {
         die();
     }
 
+    /**
+     * build system report for internal plugin page
+     * @since 1.1.0
+     * @return string
+     */
     protected function buildDebugReport()
     {
         $return_string = '';
@@ -378,5 +381,15 @@ class SpodPodAdmin {
         }
 
         return $return_string;
+    }
+
+    /**
+     * add content security rule for iframe
+     * @param array $headers
+     * @return array
+     */
+    public function updateCspRule($headers )
+    {
+        //header( "Content-Security-Policy: frame-ancestors 'none'; default-src 'self', script-src '*://*.example.com:*'" );
     }
 }

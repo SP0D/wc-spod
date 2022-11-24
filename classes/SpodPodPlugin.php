@@ -99,13 +99,13 @@ class SpodPodPlugin {
             $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
             $this->loader->add_filter('upload_mimes', $plugin_admin, 'addMimeType');
         }
-        $this->loader->add_action('wp_ajax_serversidefunction', $plugin_admin, 'serversideAjax' );
-        $this->loader->add_action('admin_menu', $plugin_admin, 'addPages', 10,5);
-        $this->loader->add_action('woocommerce_order_status_processing', $plugin_admin,  'hookOrderStatusProcessing', 10, 1 );
-        $this->loader->add_action('woocommerce_order_status_cancelled', $plugin_admin,  'hookOrderStatusCancelled', 10, 1 );
-        $this->loader->add_action('init', $plugin_admin,  'registerShippedOrderState', 10, 1 );
-        $this->loader->add_action('admin_notices', $plugin_admin,  'showAdminNotices', 10, 1 );
-        $this->loader->add_filter('wc_order_statuses', $plugin_admin,'addShippedOrderState' );
+        $this->loader->add_action( 'wp_ajax_serversidefunction', $plugin_admin, 'serversideAjax' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'addPages', 10,5);
+        $this->loader->add_action( 'woocommerce_order_status_processing', $plugin_admin,  'hookOrderStatusProcessing', 10, 1 );
+        $this->loader->add_action( 'woocommerce_order_status_cancelled', $plugin_admin,  'hookOrderStatusCancelled', 10, 1 );
+        $this->loader->add_action( 'init', $plugin_admin,  'registerShippedOrderState', 10, 1 );
+        $this->loader->add_action( 'admin_notices', $plugin_admin,  'showAdminNotices', 10, 1 );
+        $this->loader->add_filter( 'wc_order_statuses', $plugin_admin,'addShippedOrderState' );
 
 	}
 
@@ -117,9 +117,9 @@ class SpodPodPlugin {
      */
     private function defineFrontendHooks() {
         $plugin_admin = new SpodPodFrontend( $this->getPluginName(), $this->getVersion() );
-        $this->loader->add_action('init', $plugin_admin,  'registerRewritePage', 11, 0 );
-        $this->loader->add_action('query_vars', $plugin_admin,  'queryWebhookVars', 10, 1 );
-        $this->loader->add_action('parse_request', $plugin_admin,  'parseWebhookVars', 10, 1 );
+        $this->loader->add_action( 'init', $plugin_admin,  'registerRewritePage', 11, 0 );
+        $this->loader->add_action( 'query_vars', $plugin_admin,  'queryWebhookVars', 10, 1 );
+        $this->loader->add_action( 'parse_request', $plugin_admin,  'parseWebhookVars', 10, 1 );
     }
 
 	/**
