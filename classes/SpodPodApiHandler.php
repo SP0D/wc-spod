@@ -11,6 +11,7 @@
 class SpodPodApiHandler
 {
     protected $api_url = 'https://rest.spod.com/';
+    protected $rest_api_url = 'https://ff.spod-staging.com/fulfillment/woo-commerce/oauth/initiate?url=';
 
     /**
      * get main curl options
@@ -26,6 +27,20 @@ class SpodPodApiHandler
              'X-SPOD-ACCESS-TOKEN' => get_option('ng_spod_pod_token')
          ];
      }
+
+    /**
+     * get rest api curl options
+     * @since      1.1.0
+     * @return array $options
+     */
+    protected function getRestApiOptions()
+    {
+        return [
+            'accept' => 'application/json',
+            'content-Type' => 'application/json',
+            'user-agent' => 'WooCommerce/'.SPOD_POD_VERSION,
+        ];
+    }
 
     /**
      * set request via curl
@@ -74,4 +89,6 @@ class SpodPodApiHandler
             return json_decode($return_data);
         }
     }
+
+
 }
