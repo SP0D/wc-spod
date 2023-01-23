@@ -44,10 +44,11 @@ class SpodPodFrontend
      *
      * @since 1.0.0
      */
-    public function registerRewritePage()
+    public function registerRewritePages()
     {
         global $wp_rewrite;
         add_rewrite_rule('^wc-spod-webhook/([^/]*)/?', 'index.php?wcspodhooktype=$matches[1]', 'top');
+        add_rewrite_rule('^wc-spod-product/(\d+)/(\d+)/?', 'index.php?check=123&offset=$matches[1]&limit=$matches[2]', 'top');
 
         if( get_option('spodpod_flush_rewrite_rules_flag')==1 ) {
             flush_rewrite_rules();
@@ -66,6 +67,75 @@ class SpodPodFrontend
         if ($wp->matched_rule=="^wc-spod-webhook/([^/]*)/?" && isset($wp->query_vars['wcspodhooktype'])) {
             $this->handleWebhook($wp->query_vars['wcspodhooktype']);
         }
+
+        if ($wp->matched_rule=="^wc-spod-product/(\d+)/(\d+)/?") {
+            $this->handleProduct($wp->query_vars['offset'], $wp->query_vars['limit']);
+        }
+
+    }
+
+    /**
+     * query get parameter
+     *
+     * @param int $offset
+     * @param int $limit
+     * @since 2.0.0
+     */
+    protected function handleProduct($offset = 0, $limit = 1000)
+    {
+        global $wpdb;
+        // count
+        $countStmt = "SELECT COUNT(*) as maxProduct
+                FROM $wpdb->postmeta pm 
+                LEFT JOIN $wpdb->posts as p ON p.ID = pm.post_id 
+                WHERE pm.meta_key='_spod_product' AND pm.meta_value = 'spod_product'";
+        $counter = $wpdb->get_row($countStmt)->maxProduct;
+
+        // entries
+        $productStmt = "SELECT pm.post_id,p.post_type, p.post_parent  
+                FROM $wpdb->postmeta pm 
+                LEFT JOIN $wpdb->posts as p ON p.ID = pm.post_id 
+                WHERE pm.meta_key='_spod_product' AND pm.meta_value = 'spod_product'
+                LIMIT %d,%d";
+        $query = $wpdb->prepare($productStmt, $offset, $limit);
+        $spodProducts = $wpdb->get_results( $query );
+
+        #if ( $wpdb->last_error ) {
+        #    echo 'wpdb error: ' . $wpdb->last_error;
+        #}
+
+        $productsArray = [
+            'count' => $counter,
+            'offset' => $offset,
+            'limit' => $limit,
+            'items' => []
+        ];
+
+        if ($wpdb->num_rows>0) {
+            foreach ($spodProducts as $spodProduct) {
+                $postHelper = get_post($spodProduct->post_id);
+
+                if (isset($postHelper) && $postHelper->ID) {
+                    $externalArticleId = ($spodProduct->post_type=='product' ? $postHelper->ID : $postHelper->post_parent);
+                    $externalVariantId = $postHelper->ID;
+                    $externalImageId = (int) get_post_meta($postHelper->ID, '_thumbnail_id', true);
+                    $sku = get_post_meta($postHelper->ID, '_sku', true);
+                    $spod_sku = get_post_meta($postHelper->ID, '_spod_sku', true);
+
+                    $productsArray['items'][] = [
+                        'externalArticleId' => $externalArticleId,
+                        'externalVariantId' => $externalVariantId,
+                        'externalImageId' => $externalImageId,
+                        'SKU' => $sku,
+                        'spod_sku' => $spod_sku
+                    ];
+                }
+            }
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($productsArray);
+        exit();
     }
 
     /**
@@ -78,6 +148,9 @@ class SpodPodFrontend
     function queryWebhookVars($query_vars)
     {
         $query_vars[] = 'wcspodhooktype';
+        $query_vars[] = 'offset';
+        $query_vars[] = 'limit';
+
         return $query_vars;
     }
 

@@ -1,5 +1,6 @@
 <?php
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiHandler.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodRestApiHandler.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiArticles.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiOrders.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodApiSubscriptions.php';
@@ -16,55 +17,55 @@ require_once plugin_dir_path( dirname( __FILE__ ) ) . 'classes/SpodPodLogger.php
  */
 class SpodPodAdmin {
 
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
+    /**
+     * The ID of this plugin.
+     *
+     * @since    1.0.0
+     * @var      string    $plugin_name    The ID of this plugin.
+     */
+    private $plugin_name;
 
-	/**
-	 * The version of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
+    /**
+     * The version of this plugin.
+     *
+     * @since    1.0.0
+     * @var      string    $version    The current version of this plugin.
+     */
+    private $version;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version )
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $plugin_name       The name of this plugin.
+     * @param      string    $version    The version of this plugin.
+     */
+    public function __construct( $plugin_name, $version )
     {
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-	}
+        $this->plugin_name = $plugin_name;
+        $this->version = $version;
+    }
 
-	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueueStyles()
+    /**
+     * Register the stylesheets for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueueStyles()
     {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/spod_pod-admin.css', array(), $this->version, 'all' );
-	}
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/spod_pod-admin.css', array(), $this->version, 'all' );
+    }
 
-	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueueScripts()
+    /**
+     * Register the JavaScript for the admin area.
+     *
+     * @since    1.0.0
+     */
+    public function enqueueScripts()
     {
         wp_enqueue_script('wc-spod-admin', plugin_dir_url(__FILE__) . '../admin/js/spod_pod-admin.js', array('jquery'), $this->version, false);
         wp_localize_script('wc-spod-admin', 'ng_spod_pod_unique', ['ajaxurl' => admin_url('admin-ajax.php'),]);
-	}
+    }
 
     /**
      * Admin page.
@@ -167,7 +168,7 @@ class SpodPodAdmin {
                 <p><?php _e( 'WooCommerce is not installed. The Spod plugin needs <a href="https://woocommerce.com/" title="wocommerce" target="_blank">woocommerce</a> installed and activated.', 'wc-spod'); ?></p>
                 <button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php _e( 'Do not show this notice.', 'wc-spod'); ?></span></button>
             </div>
-        <?php
+            <?php
         }
     }
 
@@ -179,15 +180,21 @@ class SpodPodAdmin {
     public function adminDisplay()
     {
         $api_token = get_option('ng_spod_pod_token');
-        $api_connected = get_option('ng_spod_pod_isconnected');
-        $ApiAuthentication = new SpodPodApiAuthentication();
-        $api_state = $api_token!=='' ? $ApiAuthentication->testAuthentication($api_token) :  false;
+        if (trim($api_token)=='') {
+            $this->adminIframe();
+        }
+        else {
+            $api_connected = get_option('ng_spod_pod_isconnected');
+            $ApiAuthentication = new SpodPodApiAuthentication();
+            $api_state = $api_token!=='' ? $ApiAuthentication->testAuthentication($api_token) :  false;
 
-        include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-display.php';
+            include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-display.php';
+        }
     }
 
     /**
      * show submenu page requirements
+     *
      * @since      1.1.0
      */
     public function adminRequirments()
@@ -199,7 +206,31 @@ class SpodPodAdmin {
     }
 
     /**
+     * show subemnu page with iframe, calculate necessary frame parameters
+     *
+     * @since      2.0.0
+     */
+    public function adminIframe()
+    {
+        $shopUrl = get_bloginfo('url');
+        $hmac = 'install';
+
+        // check woocommerce rest api key
+        $SpodRestApi = new SpodPodRestApiHandler();
+        $WCRestApi = $SpodRestApi->checkRestApi();
+
+        if ($WCRestApi!==null) {
+            $hashmacUrl = 'https://app.spod.com/fulfillment/woo-commerce/module?shopUrl='.$shopUrl.'&apiKey=';
+            $hmac = hash_hmac('sha256', $hashmacUrl, $WCRestApi->consumer_secret);
+        }
+
+        include (dirname(__FILE__)).'/../admin/partials/ng_spod_pod-admin-iframe.php';
+    }
+
+
+    /**
      * show submenu page support form
+     *
      * @since      1.1.0
      */
     public function adminSupport()
@@ -349,6 +380,7 @@ class SpodPodAdmin {
 
     /**
      * build system report for internal plugin page
+     *
      * @since 1.1.0
      * @return string
      */
@@ -385,11 +417,23 @@ class SpodPodAdmin {
 
     /**
      * add content security rule for iframe
-     * @param array $headers
-     * @return array
+     *
+     * @since 2.0.0
      */
-    public function updateCspRule($headers )
+    public function updateHeaders()
     {
-        //header( "Content-Security-Policy: frame-ancestors 'none'; default-src 'self', script-src '*://*.example.com:*'" );
+        header( "Content-Security-Policy: frame-src app.spod-staging.com" );
+        header( "Content-Security-Policy: child-src app.spod-staging.com" );
+    }
+
+    /**
+     * add header for spod plugin iframe integration
+     *
+     * @since 2.0.0
+     */
+    public function adminHttpHeaders()
+    {
+        header( "Content-Security-Policy: frame-src app.spod-staging.com" );
+        header( "Content-Security-Policy: child-src app.spod-staging.com" );
     }
 }
