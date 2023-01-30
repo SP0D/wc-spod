@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'SPOD_POD_VERSION', '2.0.0' );
+define( 'SPOD_POD_VERSION', '2.0.1' );
 define( 'MIN_WORDPRESS_VERSION_REQUIRED', 4.8 );
 define( 'MIN_WOOCOMMERCE_VERSION_REQUIRED', 4.7);
 define( 'MIN_PHP_VERSION_REQUIRED', 5.6);
