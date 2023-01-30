@@ -422,8 +422,8 @@ class SpodPodAdmin {
      */
     public function updateHeaders()
     {
-        header( "Content-Security-Policy: frame-src app.spod-staging.com" );
-        header( "Content-Security-Policy: child-src app.spod-staging.com" );
+        header( "Content-Security-Policy: frame-src app.spod.com" );
+        header( "Content-Security-Policy: child-src app.spod.com" );
     }
 
     /**
@@ -433,7 +433,7 @@ class SpodPodAdmin {
      */
     public function adminHttpHeaders()
     {
-        header( "Content-Security-Policy: frame-src app.spod-staging.com" );
-        header( "Content-Security-Policy: child-src app.spod-staging.com" );
+        header( "Content-Security-Policy: frame-src app.spod.com" );
+        header( "Content-Security-Policy: child-src app.spod.com" );
     }
 }

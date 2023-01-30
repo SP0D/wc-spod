@@ -19,14 +19,12 @@ With SPOD, you’ll enjoy lightning-fast **48-hour production** and **low prices
 - **Fastest turnaround in the industry:** 48 hours or less
 - **Wide assortment:** <a href="https://www.spod.com/products/?affiliateID=12890">200+ products (and counting)</a>
 - **Worldwide shipping:** factories in US & EU for localized production
-- **Low prices from us, high margins for you:** printed T-shirts start from just $7.11 / 8,08 €
 - **Simple shipping prices** based on order value
 - **20 years printing experience**, backed by Spreadshirt
 - **Happy customers, low return rates:** less than 1% returns
 - **Streamlined dashboard:** keep tabs on your orders and revenue
 - **Free design library:** over 50k free designs to help you get started
 - **Top-notch customer service**
-- **Helpful community** of fellow SPODsters on <a href="https://www.facebook.com/groups/2849738361920777">Facebook</a>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/u75k7-z_Qjs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -44,7 +42,6 @@ We will support your online store with fast turnaround, reliable quality and 100
 
 ## Useful links
 
-- Join our <a href="https://www.facebook.com/groups/2849738361920777">Facebook Group</a>
 - Learn more about POD tips and advice from our <a href="https://www.spod.com/blog/all-blog-posts/?affiliateID=12890">SPOD Blog</a>
 - Get help and documentation in our <a href="https://faq.spod.com/hc/en-us/?affiliateID=12890">Help Center</a>
 - Rate us on <a href="https://wordpress.org/plugins/wc-spod/#reviews">WordPress</a>
@@ -60,14 +57,14 @@ or
 1.3 Upload <a href="https://downloads.wordpress.org/plugin/wc-spod.zip">https://downloads.wordpress.org/plugin/wc-spod.zip</a> to the /wp-content/plugins/ directory
 then
 2. Activate the plugin through the ‘Plugins’ menu point in WordPress
-3. Go to <a href="https://app.spod.com/integrations">https://app.spod.com/integrations</a> > WooCommerce > Connect > Continue > Copy API Key
-4. Go back to the menu point Spod > enter the API Key > Submit API Key
-5. Plugin connects to SPOD and informs you on success.
-6. After successful connection, the plugin synchs your products created in SPOD into your WooCommerce shop
+3. Go back to the menu point SPOD and click on "Complete installation"
+4. A new tab is opened, log in or register on SPOD
+5. Accept the terms and conditions for connecting to WooCommerce
+6. Go back to the menu point SPOD in Wordpress and refresh the page
 
 == Frequently Asked Questions ==
 
-= How do I get the SPOD API key to complete installation? =
+= How do I get the SPOD API key to complete installation? (versions below 2.0) =
 
 Here’s how to find your API key:
 
@@ -78,6 +75,10 @@ Here’s how to find your API key:
 5. Your API key will be generated and appear here
 
 == Changelog ==
+
+= 2.0 =
+* new users will use the WooCommerce REST API workflow
+* existing users will have the posibility to migrate to this workflow in a future version
 
 = 1.2 =
 * express and premium shipping type

@@ -7,7 +7,7 @@
             frameborder="0"
             width="100%"
             height="auto"
-            src="https://app.spod-staging.com/fulfillment/woo-commerce/module?shopUrl=<?php echo $shopUrl; ?>&apiKey=&hmac=<?php echo $hmac; ?>"
+            src="https://app.spod.com/fulfillment/woo-commerce/module?shopUrl=<?php echo $shopUrl; ?>&apiKey=&hmac=<?php echo $hmac; ?>"
             class="responsive-iframe">
     </iframe>
 </div>
