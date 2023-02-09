@@ -98,18 +98,18 @@ class SpodPodPlugin {
             $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueStyles' );
             $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueueScripts' );
             $this->loader->add_filter('upload_mimes', $plugin_admin, 'addMimeType');
+            $this->loader->add_action( 'admin_init', $plugin_admin,  'adminHttpHeaders', 20);
+            #$this->loader->add_action( 'send_headers', $plugin_admin,  'updateHeaders');
+            remove_action( 'admin_init', 'send_frame_options_header');
         }
         $this->loader->add_action( 'wp_ajax_serversidefunction', $plugin_admin, 'serversideAjax' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'addPages', 10,5);
         $this->loader->add_action( 'woocommerce_order_status_processing', $plugin_admin,  'hookOrderStatusProcessing', 10, 1 );
         $this->loader->add_action( 'woocommerce_order_status_cancelled', $plugin_admin,  'hookOrderStatusCancelled', 10, 1 );
-        $this->loader->add_action( 'admin_init', $plugin_admin,  'adminHttpHeaders', 20);
-        #$this->loader->add_action( 'send_headers', $plugin_admin,  'updateHeaders');
         $this->loader->add_action( 'init', $plugin_admin,  'registerShippedOrderState', 10, 1 );
         $this->loader->add_action( 'admin_notices', $plugin_admin,  'showAdminNotices', 10, 1 );
         $this->loader->add_filter( 'wc_order_statuses', $plugin_admin,'addShippedOrderState' );
 
-        remove_action( 'admin_init', 'send_frame_options_header',10);
     }
 
     /**
