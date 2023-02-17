@@ -79,7 +79,7 @@ class SpodPodApiSubscriptions extends SpodPodApiHandler
     {
         $subscriptions = $this->setRequest($this->api_url.$this->resource_subscriptions);
 
-        if (isset($subscriptions) && count($subscriptions)>0) {
+        if (isset($subscriptions) && count((array)$subscriptions)>0) {
             foreach($subscriptions as $subscription) {
                 $this->deleteSubscription($subscription->id);
             }
