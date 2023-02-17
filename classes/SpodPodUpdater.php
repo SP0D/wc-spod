@@ -8,6 +8,10 @@
  */
 class SpodPodUpdater
 {
+    /**
+     * add sql tables for background cronjobs
+     * @since 1.2.0
+     */
 	public static function update120()
 	{
         global $wpdb;
@@ -33,4 +37,18 @@ class SpodPodUpdater
             update_option('spodpod_plugin_version', $new_plugin_version);
         }
 	}
+
+    /**
+     * flush rewrites after update and save new version number
+     * @since 1.2.0
+     */
+    public static function update210() {
+        $plugin_version = get_option('spodpod_plugin_version');
+        $new_plugin_version = "2.1.0";
+
+        if (version_compare($plugin_version, $new_plugin_version, '<')) {
+            update_option('spodpod_plugin_version', $new_plugin_version);
+            flush_rewrite_rules();
+        }
+    }
 }
