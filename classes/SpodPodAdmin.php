@@ -74,9 +74,7 @@ class SpodPodAdmin {
      */
     public function addPages()
     {
-        add_menu_page( __('Spod', 'wc-spod'), __('Spod','wc-spod'), 'manage_woocommerce', 'wc-spod', array(&$this, 'adminDisplay'), get_site_url(null, '/wp-content/plugins/wc-spod/admin/images/spod-icon-white.png'), 90 );
-        add_submenu_page('wc-spod', __('System Report', 'wc-spod'), __('System Report', 'wc-spod'), 'manage_woocommerce', 'wc-spod-requirements', array(&$this, 'adminRequirments'), 1);
-        add_submenu_page('wc-spod', __('Support', 'wc-spod'), __('Support', 'wc-spod'), 'manage_woocommerce', 'wc-spod-support', array(&$this, 'adminSupport'), 2);
+        add_menu_page( __('SPOD', 'wc-spod'), __('SPOD','wc-spod'), 'manage_woocommerce', 'wc-spod', array(&$this, 'adminDisplay'), get_site_url(null, '/wp-content/plugins/wc-spod/admin/images/spod-icon-white.png'), 90 );
     }
 
     /**
@@ -180,10 +178,15 @@ class SpodPodAdmin {
     public function adminDisplay()
     {
         $api_token = get_option('ng_spod_pod_token');
-        if (trim($api_token)=='') {
+        
+        $SpodRestApi = new SpodPodRestApiHandler();
+        $WCRestApi = $SpodRestApi->checkRestApi();
+        
+        if (!(trim($api_token)=='' && $WCRestApi == null)) {
             $this->adminIframe();
         }
         else {
+            $shopUrl = get_bloginfo('url');
             $api_connected = get_option('ng_spod_pod_isconnected');
             $ApiAuthentication = new SpodPodApiAuthentication();
             $api_state = $api_token!=='' ? $ApiAuthentication->testAuthentication($api_token) :  false;

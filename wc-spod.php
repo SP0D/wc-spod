@@ -5,7 +5,7 @@
  * @package           wc-spod
  *
  * @wordpress-plugin
- * Plugin Name:       SPOD Pod Plugin
+ * Plugin Name:       SPOD Plugin
  * Plugin URI:        https://www.spod.com/
  * Description:       Connect your WooCommerce Shop to the leading provider of whitelabel print-on-demand services. Get an automatic product, order and order status synchronisation and a seamless integration into your WooCommerce setup ready within minutes.
  * Version:           2.1.0
