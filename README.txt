@@ -1,10 +1,10 @@
-=== SPOD Integration for WooCommerce ===
+=== SPOD plugin for WooCommerce ===
 Contributors: 5p0d
 Donate link: www.spod.com
 Tags: Print on demand, Dropshipping, Woocommerce, POD, Print, Print on demand Europe, Print on demand US, SPOD, T-Shirts, Spreadshirt, Apparel
 Requires at least: 4.6 - 5.7
 Tested up to: 6.1
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 License: GPLv2 or later
 Requires PHP: 7.4
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -61,23 +61,24 @@ then
 4. A new tab is opened, log in or register on SPOD
 5. Accept the terms and conditions for connecting to WooCommerce
 6. Go back to the menu point SPOD in Wordpress and refresh the page
+7. To define custom name for attributes "size" and "color" head over to Integration Settings on <a href="https://app.spod.com">app.spod.com</a>
 
 == Frequently Asked Questions ==
 
-= How do I get the SPOD API key to complete installation? (versions below 2.0) =
+= I get an error during installation, what do I do now? =
 
-Here’s how to find your API key:
-
-1. Open the SPOD app
-2. On your SPOD Dashboard, click Integrations, found on the left menu
-3. Under the WooCommerce section, click Connect
-4. Enter your store’s information
-5. Your API key will be generated and appear here
+* "Error: An error occured in the request and at the time were unable to send the consumer data" : For security reasons, now you need to have a valid SSL certificate, and run the installation from a https domain. 
+* "Not allowed": Please go to Wordpress Admin > WooCommerce > Settings > Advanced > REST API and delete all API keys starting with "spod - API (...)". Then go back to Spod Plugin and click on "Complete installation". This will retrigger the installation. 
+* For other issues, feel free to contact us with a screenshot/screencast and your domain.
 
 == Changelog ==
 
+= 2.1 =
+* Users having installed the SPOD plugin before 30th of January 2023 now have the possibility to migrate to the new, improved workflow. The old workflow will stop working in the next version, so we recommend following the steps shown in Wordpress Admin > SPOD.
+
 = 2.0.2 =
-Improvement of Content Security Police for embedding spod service at the backend
+* Improvement of Content Security Police for embedding spod service at the backend
+
 = 2.0 =
 * new users will use the WooCommerce REST API workflow
 * existing users will have the posibility to migrate to this workflow in a future version

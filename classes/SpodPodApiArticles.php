@@ -4,7 +4,7 @@
  *
  * @link       https://www.spod.com
  * @since      1.0.0
- * @see        https://rest.spod-staging.com/docs/#tag/Articles
+ * @see        https://rest.spod.com/docs/#tag/Articles
  * @package    wc-spod
  * @subpackage wc-spod/classes
  */
