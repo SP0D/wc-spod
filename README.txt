@@ -3,7 +3,7 @@ Contributors: 5p0d
 Donate link: www.spod.com
 Tags: Print on demand, Dropshipping, Woocommerce, POD, Print, Print on demand Europe, Print on demand US, SPOD, T-Shirts, Spreadshirt, Apparel
 Requires at least: 4.6 - 5.7
-Tested up to: 6.1
+Tested up to: 6.2
 Stable tag: 2.1.0
 License: GPLv2 or later
 Requires PHP: 7.4
